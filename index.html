@@ -1,0 +1,1441 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Seeker Registration — Onigbongbo LCDA</title>
+    <meta
+      name="description"
+      content="Register your details with Onigbongbo Local Council Development Area. We will contact you when job opportunities become available."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="icon" type="image/png" href="onigbongbo-logo.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --green-dark: #1a5c2a;
+        --green-mid: #2d7a40;
+        --green-light: #e8f4ec;
+        --green-border: #a8d5b5;
+        --gold: #d4a017;
+        --text-primary: #1a1a1a;
+        --text-secondary: #555;
+        --text-hint: #888;
+        --border: #ddd;
+        --bg-page: #f4f6f4;
+        --bg-card: #ffffff;
+        --bg-field: #f9faf9;
+        --red: #c0392b;
+        --radius: 10px;
+        --radius-sm: 6px;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--bg-page);
+        color: var(--text-primary);
+        font-size: 15px;
+        line-height: 1.6;
+        min-height: 100vh;
+        padding: 1.5rem 1rem 3rem;
+      }
+
+      .portal-wrap {
+        max-width: 680px;
+        margin: 0 auto;
+      }
+
+      /* HEADER */
+      .portal-header {
+        background: var(--green-dark);
+        color: white;
+        padding: 1.5rem 1.5rem 1.25rem;
+        border-radius: var(--radius) var(--radius) 0 0;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .coat-placeholder {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: white;
+        border: 3px solid var(--gold);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .coat-inner {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: var(--green-dark);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .coat-inner svg {
+        width: 24px;
+        height: 24px;
+        fill: white;
+      }
+      .header-text h1 {
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 1.3;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+      }
+      .header-text p {
+        font-size: 12px;
+        opacity: 0.82;
+        margin-top: 3px;
+      }
+
+      /* PROGRESS — honest fill bar, no fake steps */
+      .progress-wrap {
+        background: var(--green-mid);
+        padding: 10px 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .progress-track {
+        flex: 1;
+        height: 5px;
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 3px;
+        overflow: hidden;
+      }
+      .progress-fill {
+        height: 100%;
+        width: 0%;
+        background: white;
+        border-radius: 3px;
+        transition: width 0.4s ease;
+      }
+      .progress-pct {
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.85);
+        white-space: nowrap;
+        min-width: 36px;
+        text-align: right;
+      }
+
+      /* CARD */
+      .form-card {
+        background: var(--bg-card);
+        border: 1px solid #dde5dd;
+        border-top: none;
+        border-radius: 0 0 var(--radius) var(--radius);
+        padding: 1.75rem 1.5rem;
+      }
+
+      /* SECTIONS */
+      .section-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--green-dark);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding-bottom: 8px;
+        border-bottom: 2px solid var(--green-dark);
+        margin: 1.75rem 0 1rem;
+      }
+      .section-label:first-of-type {
+        margin-top: 0;
+      }
+      .section-label svg {
+        width: 16px;
+        height: 16px;
+        fill: var(--green-dark);
+        flex-shrink: 0;
+      }
+
+      /* FIELDS */
+      .field-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-bottom: 14px;
+      }
+      .field-row.full {
+        grid-template-columns: 1fr;
+      }
+      .field-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .field-group label {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-secondary);
+      }
+      .req {
+        color: var(--red);
+        margin-left: 2px;
+      }
+      .field-group input,
+      .field-group select,
+      .field-group textarea {
+        font-family: "Inter", sans-serif;
+        font-size: 14px;
+        padding: 10px 12px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        background: var(--bg-field);
+        color: var(--text-primary);
+        width: 100%;
+        transition:
+          border-color 0.15s,
+          box-shadow 0.15s;
+        appearance: none;
+        -webkit-appearance: none;
+      }
+      .field-group select {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        padding-right: 36px;
+      }
+      .field-group input:focus,
+      .field-group select:focus,
+      .field-group textarea:focus {
+        outline: none;
+        border-color: var(--green-dark);
+        box-shadow: 0 0 0 3px rgba(26, 92, 42, 0.1);
+        background: white;
+      }
+      .field-group textarea {
+        resize: vertical;
+        min-height: 90px;
+      }
+      .hint {
+        font-size: 11.5px;
+        color: var(--text-hint);
+        line-height: 1.4;
+      }
+
+      /* CV UPLOAD */
+      .upload-zone {
+        border: 2px dashed var(--border);
+        border-radius: var(--radius-sm);
+        background: var(--bg-field);
+        padding: 1.25rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s;
+        position: relative;
+      }
+      .upload-zone:hover,
+      .upload-zone.dragover {
+        border-color: var(--green-dark);
+        background: var(--green-light);
+      }
+      .upload-zone input[type="file"] {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+      }
+      .upload-icon {
+        width: 36px;
+        height: 36px;
+        fill: var(--text-hint);
+        margin: 0 auto 8px;
+        display: block;
+      }
+      .upload-zone p {
+        font-size: 13px;
+        color: var(--text-secondary);
+      }
+      .upload-zone span {
+        font-size: 11.5px;
+        color: var(--text-hint);
+        display: block;
+        margin-top: 4px;
+      }
+      .upload-status {
+        margin-top: 10px;
+        font-size: 13px;
+        border-radius: var(--radius-sm);
+        padding: 9px 12px;
+        display: none;
+        align-items: center;
+        gap: 8px;
+      }
+      .upload-status.uploading {
+        display: flex;
+        background: #fffbeb;
+        border: 1px solid #fcd34d;
+        color: #92400e;
+      }
+      .upload-status.done {
+        display: flex;
+        background: var(--green-light);
+        border: 1px solid var(--green-border);
+        color: var(--green-dark);
+      }
+      .upload-status.error {
+        display: flex;
+        background: #fef2f2;
+        border: 1px solid #fca5a5;
+        color: #991b1b;
+      }
+      .upload-status svg {
+        width: 16px;
+        height: 16px;
+        fill: currentColor;
+        flex-shrink: 0;
+      }
+
+      /* SKILLS */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+        gap: 8px;
+        margin-bottom: 14px;
+      }
+      .skill-check {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 11px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        font-size: 13px;
+        color: var(--text-secondary);
+        transition: all 0.15s;
+        user-select: none;
+        background: var(--bg-field);
+      }
+      .skill-check:hover {
+        border-color: var(--green-border);
+        background: var(--green-light);
+      }
+      .skill-check input[type="checkbox"] {
+        accent-color: var(--green-dark);
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+      }
+      .skill-check.checked {
+        background: var(--green-light);
+        border-color: var(--green-dark);
+        color: var(--green-dark);
+        font-weight: 500;
+      }
+
+      /* AVAILABILITY */
+      .avail-row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 14px;
+      }
+      .avail-btn {
+        padding: 9px 18px;
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        font-family: "Inter", sans-serif;
+        font-size: 13px;
+        cursor: pointer;
+        background: var(--bg-field);
+        color: var(--text-secondary);
+        transition: all 0.15s;
+      }
+      .avail-btn:hover {
+        border-color: var(--green-border);
+        background: var(--green-light);
+      }
+      .avail-btn.sel {
+        background: var(--green-dark);
+        color: white;
+        border-color: var(--green-dark);
+        font-weight: 500;
+      }
+
+      /* ERROR BOX */
+      .error-box {
+        background: #fef2f2;
+        border: 1px solid #fca5a5;
+        border-radius: var(--radius-sm);
+        padding: 12px 14px;
+        font-size: 13px;
+        color: #991b1b;
+        margin-bottom: 14px;
+        display: none;
+      }
+
+      /* SUBMIT */
+      .submit-area {
+        margin-top: 2rem;
+      }
+      .btn-submit {
+        width: 100%;
+        background: var(--green-dark);
+        color: white;
+        border: none;
+        border-radius: var(--radius-sm);
+        padding: 15px 24px;
+        font-family: "Inter", sans-serif;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        transition:
+          background 0.15s,
+          opacity 0.15s;
+      }
+      .btn-submit:hover {
+        background: #144a20;
+      }
+      .btn-submit:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+      .btn-submit svg {
+        width: 18px;
+        height: 18px;
+        fill: white;
+      }
+      .privacy-note {
+        margin-top: 12px;
+        font-size: 12px;
+        color: var(--text-hint);
+        text-align: center;
+        line-height: 1.5;
+      }
+
+      /* SUCCESS */
+      .success-card {
+        display: none;
+        background: var(--green-light);
+        border: 1px solid var(--green-border);
+        border-radius: var(--radius);
+        padding: 2.5rem 1.5rem;
+        text-align: center;
+      }
+      .success-icon {
+        width: 64px;
+        height: 64px;
+        background: var(--green-dark);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.25rem;
+      }
+      .success-icon svg {
+        width: 32px;
+        height: 32px;
+        fill: white;
+      }
+      .success-card h2 {
+        color: var(--green-dark);
+        font-size: 20px;
+        margin-bottom: 8px;
+      }
+      .ref-box {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        background: white;
+        border: 1px solid var(--green-border);
+        border-radius: var(--radius-sm);
+        padding: 12px 20px;
+        margin-top: 14px;
+        gap: 3px;
+      }
+      .ref-box .ref-label {
+        font-size: 11px;
+        color: var(--text-hint);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+      .ref-box .ref-num {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--green-dark);
+        letter-spacing: 0.08em;
+      }
+      .ref-tip {
+        font-size: 12px;
+        color: #2d5a38;
+        margin-top: 8px;
+      }
+
+      /* FOOTER */
+      .portal-footer {
+        text-align: center;
+        margin-top: 1.25rem;
+        font-size: 11.5px;
+        color: var(--text-hint);
+      }
+      .portal-footer a {
+        color: var(--green-dark);
+        text-decoration: none;
+      }
+
+      /* NDPR NOTICE */
+      .ndpr-notice {
+        background: #fffbeb;
+        border: 1px solid #fcd34d;
+        border-radius: var(--radius-sm);
+        padding: 12px 14px;
+        margin-bottom: 1.5rem;
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+      }
+      .ndpr-notice svg {
+        width: 18px;
+        height: 18px;
+        fill: #b45309;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+      .ndpr-notice p {
+        font-size: 12.5px;
+        color: #78350f;
+        line-height: 1.55;
+      }
+      .ndpr-notice strong {
+        display: block;
+        margin-bottom: 2px;
+        font-size: 13px;
+        color: #92400e;
+      }
+
+      /* ALREADY SUBMITTED BANNER */
+      .already-submitted {
+        display: none;
+        background: var(--green-light);
+        border: 1px solid var(--green-border);
+        border-radius: var(--radius);
+        padding: 2rem 1.5rem;
+        text-align: center;
+      }
+      .already-submitted svg {
+        width: 40px;
+        height: 40px;
+        fill: var(--green-dark);
+        margin-bottom: 10px;
+      }
+      .already-submitted h2 {
+        color: var(--green-dark);
+        font-size: 18px;
+        margin-bottom: 8px;
+      }
+      .already-submitted p {
+        font-size: 13.5px;
+        color: #2d5a38;
+        line-height: 1.6;
+      }
+
+      /* Phone field error state */
+      .field-group input.input-error {
+        border-color: var(--red);
+        box-shadow: 0 0 0 3px rgba(192,57,43,0.1);
+      }
+      .phone-error-msg {
+        font-size: 11.5px;
+        color: var(--red);
+        display: none;
+        margin-top: 2px;
+      }
+
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @media (max-width: 520px) {
+        body {
+          padding: 0 0 2rem;
+        }
+        .portal-wrap {
+          max-width: 100%;
+        }
+        .portal-header {
+          flex-direction: column;
+          text-align: center;
+          border-radius: 0;
+        }
+        .form-card {
+          border-radius: 0;
+          border-left: none;
+          border-right: none;
+          padding: 1.25rem 1rem;
+        }
+        .field-row {
+          grid-template-columns: 1fr;
+        }
+        .skills-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="portal-wrap" role="main">
+      <header class="portal-header">
+        <img
+          src="onigbongbo-logo.png"
+          alt="Onigbongbo LCDA Coat of Arms"
+          style="
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            background: white;
+            border-radius: 50%;
+            border: 3px solid #d4a017;
+            padding: 4px;
+            flex-shrink: 0;
+          "
+        />
+
+        <div class="header-text">
+          <h1>Onigbongbo Local Council Development Area</h1>
+          <p>Job Seeker Registration Portal &mdash; Lagos State, Nigeria</p>
+        </div>
+      </header>
+
+      <!-- HONEST PROGRESS BAR -->
+      <div
+        class="progress-wrap"
+        role="progressbar"
+        aria-label="Form completion"
+        aria-valuenow="0"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        id="progressWrap"
+      >
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <span class="progress-pct" id="progressPct" aria-live="polite">0%</span>
+      </div>
+
+      <div class="form-card">
+        <form id="mainForm" novalidate>
+
+          <!-- ALREADY SUBMITTED BANNER (shown instead of form if previously submitted) -->
+          <div class="already-submitted" id="alreadySubmitted">
+            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+            <h2>You have already registered</h2>
+            <p>Our records show that you have already submitted a registration from this device.<br>
+            If you believe this is a mistake, please visit the council office directly or call us.<br><br>
+            <strong>No payment is required for job placement. Beware of fraudsters.</strong></p>
+          </div>
+
+          <!-- NDPR PRIVACY NOTICE -->
+          <div class="ndpr-notice" role="note" aria-label="Privacy notice">
+            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 6h2v2h-2V7zm0 4h2v6h-2v-6z"/></svg>
+            <p>
+              <strong>Privacy Notice (NDPR Compliance)</strong>
+              The information you provide on this form is collected by Onigbongbo Local Council Development Area solely for the purpose of job placement and employment facilitation within our jurisdiction. Your data will be stored securely, used only by authorised council staff, and will not be sold or shared with third parties. By submitting this form, you consent to this use of your personal data. You have the right to request access to or deletion of your data by visiting the council secretariat.
+            </p>
+          </div>
+          <!-- PERSONAL INFORMATION -->
+          <div class="section-label">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"
+              />
+            </svg>
+            Personal information
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="fname">First name <span class="req">*</span></label>
+              <input
+                type="text"
+                id="fname"
+                name="firstName"
+                placeholder="e.g. Chidi"
+                autocomplete="given-name"
+                required
+              />
+            </div>
+            <div class="field-group">
+              <label for="lname">Last name <span class="req">*</span></label>
+              <input
+                type="text"
+                id="lname"
+                name="lastName"
+                placeholder="e.g. Okonkwo"
+                autocomplete="family-name"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="phone">Phone number <span class="req">*</span></label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                required
+                maxlength="14"
+                placeholder="08012345678"
+              />
+              <span class="phone-error-msg" id="phoneErrorMsg">Please enter a valid Nigerian number (e.g. 08012345678 or +2348012345678)</span>
+              <span class="hint">Nigerian number — starts with 070, 080, 081, 090, 091, or +234</span>
+            </div>
+            <div class="field-group">
+              <label for="dob">Date of birth <span class="req">*</span></label>
+              <input type="date" id="dob" name="dob" required />
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="gender">Gender <span class="req">*</span></label>
+              <select id="gender" name="gender" required>
+                <option value="">— Select —</option>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Prefer not to say</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="email">Email address</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="yourname@email.com"
+                autocomplete="email"
+              />
+              <span class="hint">Optional — only if you have one</span>
+            </div>
+          </div>
+
+          <div class="field-row full">
+            <div class="field-group">
+              <label for="address"
+                >Home address in Onigbongbo LCDA
+                <span class="req">*</span></label
+              >
+              <input
+                type="text"
+                id="address"
+                name="address"
+                placeholder="Street name, estate, or area"
+                autocomplete="street-address"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- EDUCATION -->
+          <div class="section-label">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"
+              />
+            </svg>
+            Education
+          </div>
+
+          <div class="field-row full">
+            <div class="field-group">
+              <label for="edu_level"
+                >Highest level of education <span class="req">*</span></label
+              >
+              <select id="edu_level" name="eduLevel" required>
+                <option value="">— Select your highest —</option>
+                <option>No formal education</option>
+                <option>Primary school</option>
+                <option>Junior Secondary (JSS3)</option>
+                <option>Senior Secondary (WAEC / NECO)</option>
+                <option>OND / NCE</option>
+                <option>HND</option>
+                <option>B.Sc / B.A / B.Ed (University degree)</option>
+                <option>Postgraduate (M.Sc / MBA / PhD)</option>
+                <option>Vocational / Trade certificate</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="school">School or institution attended</label>
+              <input
+                type="text"
+                id="school"
+                name="school"
+                placeholder="e.g. Unilag, Yaba Tech, FGGC"
+              />
+            </div>
+            <div class="field-group">
+              <label for="course">Course or field of study</label>
+              <input
+                type="text"
+                id="course"
+                name="course"
+                placeholder="e.g. Electrical Engineering"
+              />
+            </div>
+          </div>
+
+          <!-- WORK EXPERIENCE -->
+          <div class="section-label">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"
+              />
+            </svg>
+            Work experience
+          </div>
+
+          <div class="field-row full">
+            <div class="field-group">
+              <label for="exp_years"
+                >How many years of work experience do you have?
+                <span class="req">*</span></label
+              >
+              <select id="exp_years" name="expYears" required>
+                <option value="">— Select —</option>
+                <option>No experience (fresh graduate / school leaver)</option>
+                <option>Less than 1 year</option>
+                <option>1 – 3 years</option>
+                <option>4 – 7 years</option>
+                <option>8 – 15 years</option>
+                <option>More than 15 years</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-row full">
+            <div class="field-group">
+              <label for="last_job">Last job title or type of work</label>
+              <input
+                type="text"
+                id="last_job"
+                name="lastJob"
+                placeholder="e.g. Mechanic, Primary school teacher, Civil servant, Trader"
+              />
+            </div>
+          </div>
+
+          <div class="field-row full">
+            <div class="field-group">
+              <label for="exp_desc"
+                >Briefly describe your work experience</label
+              >
+              <textarea
+                id="exp_desc"
+                name="expDesc"
+                placeholder="Tell us what kind of jobs you have done before, even if informal — e.g. farming, artisan work, market trading, domestic work..."
+              ></textarea>
+              <span class="hint"
+                >No formal experience? Leave this blank — that is okay.</span
+              >
+            </div>
+          </div>
+
+          <!-- SKILLS -->
+          <div class="section-label">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"
+              />
+            </svg>
+            Skills &amp; abilities
+          </div>
+
+          <p
+            style="
+              font-size: 13px;
+              color: var(--text-secondary);
+              margin-bottom: 10px;
+            "
+          >
+            Tick everything that applies to you:
+          </p>
+          <div
+            class="skills-grid"
+            id="skillsGrid"
+            role="group"
+            aria-label="Skills"
+          >
+            <label class="skill-check"
+              ><input type="checkbox" value="Computer / ICT" /> Computer /
+              ICT</label
+            >
+            <label class="skill-check"
+              ><input type="checkbox" value="Driving" /> Driving</label
+            >
+            <label class="skill-check"
+              ><input type="checkbox" value="Carpentry" /> Carpentry</label
+            >
+            <label class="skill-check"
+              ><input type="checkbox" value="Plumbing" /> Plumbing</label
+            >
+            <label class="skill-check"
+              ><input type="checkbox" value="Electrical work" /> Electrical
+              work</label
+            >
+            <label class="skill-check"
+              ><input type="checkbox" value="Tailoring / Fashion" /> Tailoring /
+              Fashion</label
+            >
+            <label class="skill-check"
+              ><input type="checkbox" value="Catering / Cooking" /> Catering /
+              Cooking</label
+            >
+            <label class="skill-check"
+              ><input type="checkbox" value="Cleaning / Sanitation" /> Cleaning
+              / Sanitation</label
+            >
+            <label class="skill-check"
+              ><input type="checkbox" value="Teaching / Tutoring" /> Teaching /
+              Tutoring</label
+            >
+            <label class="skill-check"
+              ><input type="checkbox" value="Farming / Agriculture" /> Farming /
+              Agriculture</label
+            >
+            <label class="skill-check"
+              ><input type="checkbox" value="Sales / Marketing" /> Sales /
+              Marketing</label
+            >
+            <label class="skill-check"
+              ><input type="checkbox" value="Security" /> Security</label
+            >
+            <label class="skill-check"
+              ><input type="checkbox" value="Healthcare / Nursing" /> Healthcare
+              / Nursing</label
+            >
+            <label class="skill-check"
+              ><input type="checkbox" value="Writing / Admin" /> Writing /
+              Admin</label
+            >
+            <label class="skill-check"
+              ><input type="checkbox" value="Mechanic / Auto repair" /> Mechanic
+              / Auto repair</label
+            >
+            <label class="skill-check"
+              ><input type="checkbox" value="Painting / Decorating" /> Painting
+              / Decorating</label
+            >
+          </div>
+
+          <div class="field-row full">
+            <div class="field-group">
+              <label for="other_skills">Other skills not listed above</label>
+              <input
+                type="text"
+                id="other_skills"
+                name="otherSkills"
+                placeholder="e.g. Welding, Photography, Sign-writing..."
+              />
+            </div>
+          </div>
+
+          <!-- AVAILABILITY -->
+          <div class="section-label">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L11 13V7h1.5v5.25l4.5 2.67-1.77 3.08z"
+              />
+            </svg>
+            Availability
+          </div>
+
+          <p
+            style="
+              font-size: 13px;
+              color: var(--text-secondary);
+              margin-bottom: 8px;
+            "
+          >
+            When are you available to work? <span class="req">*</span>
+          </p>
+          <div
+            class="avail-row"
+            id="availRow"
+            role="group"
+            aria-label="Availability"
+          >
+            <button type="button" class="avail-btn" data-v="Full-time">
+              Full-time
+            </button>
+            <button type="button" class="avail-btn" data-v="Part-time">
+              Part-time
+            </button>
+            <button
+              type="button"
+              class="avail-btn"
+              data-v="Contract / Temporary"
+            >
+              Contract / Temporary
+            </button>
+            <button type="button" class="avail-btn" data-v="Any / Flexible">
+              Any / Flexible
+            </button>
+          </div>
+          <input type="hidden" id="availability" name="availability" />
+
+          <!-- CV UPLOAD -->
+          <div class="section-label">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11zM8 15.01l1.41 1.41L11 14.84V19h2v-4.16l1.59 1.59L16 15.01 12.01 11z"
+              />
+            </svg>
+            CV / Résumé upload
+          </div>
+
+          <div class="field-group">
+            <label
+              >Upload your CV
+              <span
+                class="hint"
+                style="
+                  font-weight: 400;
+                  text-transform: none;
+                  letter-spacing: 0;
+                "
+                >(optional — PDF, Word, or image. Max 5MB)</span
+              ></label
+            >
+            <div class="upload-zone" id="uploadZone">
+              <input
+                type="file"
+                id="cvFile"
+                accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                aria-label="Upload your CV"
+              />
+              <svg class="upload-icon" viewBox="0 0 24 24">
+                <path
+                  d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"
+                />
+              </svg>
+              <p>Tap to choose your CV file</p>
+              <span>PDF, Word document, or photo of your CV</span>
+            </div>
+            <div class="upload-status" id="uploadStatus">
+              <svg viewBox="0 0 24 24" id="uploadStatusIcon">
+                <path
+                  d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"
+                />
+              </svg>
+              <span id="uploadStatusText"></span>
+            </div>
+            <input type="hidden" id="cvUrl" name="cvUrl" />
+            <span class="hint" style="margin-top: 4px"
+              >Do not have a CV? That is fine — your form will still be
+              submitted.</span
+            >
+          </div>
+
+          <!-- ADDITIONAL -->
+          <div class="section-label">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z"
+              />
+            </svg>
+            Additional information
+          </div>
+
+          <div class="field-row full">
+            <div class="field-group">
+              <label for="disability"
+                >Do you have a disability or special need?</label
+              >
+              <input
+                type="text"
+                id="disability"
+                name="disability"
+                placeholder="Leave blank if not applicable"
+              />
+              <span class="hint"
+                >This will not affect your chances. We want to support all
+                residents.</span
+              >
+            </div>
+          </div>
+
+          <div class="field-row full">
+            <div class="field-group">
+              <label for="referee"
+                >Guarantor or referee within Onigbongbo LCDA</label
+              >
+              <input
+                type="text"
+                id="referee"
+                name="referee"
+                placeholder="Full name and phone number (optional)"
+              />
+            </div>
+          </div>
+
+          <!-- SUBMIT -->
+          <div class="submit-area">
+            <div class="error-box" id="errorBox" role="alert"></div>
+            <button type="submit" class="btn-submit" id="submitBtn">
+              <svg viewBox="0 0 24 24">
+                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+              </svg>
+              Submit my registration
+            </button>
+            <p class="privacy-note">
+              By submitting, you agree that Onigbongbo LCDA may contact you when
+              job opportunities arise.<br />
+              Your information is kept confidential.
+              <strong>No payment is required for this registration.</strong>
+            </p>
+          </div>
+        </form>
+
+        <!-- SUCCESS -->
+        <div
+          class="success-card"
+          id="successCard"
+          role="status"
+          aria-live="polite"
+        >
+          <div class="success-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"
+              />
+            </svg>
+          </div>
+          <h2>Registration successful!</h2>
+          <p
+            id="successName"
+            style="font-size: 15px; color: var(--green-mid)"
+          ></p>
+          <p
+            style="
+              margin-top: 10px;
+              font-size: 14px;
+              color: #2d5a38;
+              max-width: 420px;
+              margin-left: auto;
+              margin-right: auto;
+              line-height: 1.6;
+            "
+          >
+            Your details have been saved with the council. We will contact you
+            when a matching opportunity becomes available.
+            <strong>No payment is required at any stage.</strong>
+          </p>
+          <div class="ref-box">
+            <span class="ref-label">Your reference number</span>
+            <span class="ref-num" id="refNum"></span>
+          </div>
+          <p class="ref-tip">
+            Keep this number safe. If you call the council to follow up, quote
+            this reference so we can find your record quickly.
+          </p>
+        </div>
+      </div>
+
+      <footer class="portal-footer">
+        &copy; <span id="yr"></span> Onigbongbo Local Council Development Area
+        &mdash; Lagos State, Nigeria<br />
+        <a href="https://onigbongbolcda.lg.gov.ng">onigbongbolcda.lg.gov.ng</a>
+      </footer>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+      document.getElementById("yr").textContent = new Date().getFullYear();
+
+      // ─── CONFIGURE THESE ────────────────────────────────────────────
+      var SHEETDB_URL = "https://sheetdb.io/api/v1/fw4di0zyr84ag";
+      var SUPABASE_URL = "https://brjiqnrhxrmnkcaewyye.supabase.co";
+      var SUPABASE_ANON_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJyamlxbnJoeHJtbmtjYWV3eXllIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwMzg0OTIsImV4cCI6MjA5NzYxNDQ5Mn0.GouNFoBDfnb0dTI4tkkltJAs3N3ty4DteZv-lGzk9Jc";
+      var supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      // ────────────────────────────────────────────────────────────────
+
+      // ── DUPLICATE SUBMISSION GUARD (localStorage) ───────────────────
+      // Runs immediately on page load — hides form, shows banner if already submitted
+      function showAlreadySubmitted() {
+        document.getElementById("alreadySubmitted").style.display = "block";
+        document.getElementById("ndprNotice") && (document.getElementById("ndprNotice").style.display = "none");
+        // Hide all form content except the banner
+        var sections = document.querySelectorAll(
+          "#mainForm .section-label, #mainForm .field-row, #mainForm .field-group, #mainForm .skills-grid, #mainForm .avail-row, #mainForm .submit-area, #mainForm > p, .ndpr-notice"
+        );
+        sections.forEach(function(el) { el.style.display = "none"; });
+      }
+
+      if (localStorage.getItem("olg_submitted") === "true") {
+        showAlreadySubmitted();
+      }
+
+      // ── PROGRESS BAR ────────────────────────────────────────────────
+      var requiredIds = ["fname","lname","phone","dob","gender","address","edu_level","exp_years"];
+      function updateProgress() {
+        var filled = 0;
+        requiredIds.forEach(function(id) {
+          if (document.getElementById(id).value.trim()) filled++;
+        });
+        if (document.getElementById("availability").value) filled++;
+        var total = requiredIds.length + 1;
+        var pct = Math.round((filled / total) * 100);
+        document.getElementById("progressFill").style.width = pct + "%";
+        document.getElementById("progressPct").textContent = pct + "%";
+        document.getElementById("progressWrap").setAttribute("aria-valuenow", pct);
+      }
+      requiredIds.forEach(function(id) {
+        document.getElementById(id).addEventListener("input", updateProgress);
+        document.getElementById(id).addEventListener("change", updateProgress);
+      });
+
+      // ── PHONE VALIDATION (live feedback) ────────────────────────────
+      function isValidNigerianPhone(raw) {
+        var phone = raw.replace(/\s+/g, "").replace(/-/g, "");
+        return /^(\+234|0)[789][01]\d{8}$/.test(phone);
+      }
+
+      document.getElementById("phone").addEventListener("blur", function() {
+        var val = this.value.trim();
+        var errMsg = document.getElementById("phoneErrorMsg");
+        if (val && !isValidNigerianPhone(val)) {
+          this.classList.add("input-error");
+          errMsg.style.display = "block";
+        } else {
+          this.classList.remove("input-error");
+          errMsg.style.display = "none";
+        }
+      });
+
+      document.getElementById("phone").addEventListener("input", function() {
+        if (this.classList.contains("input-error")) {
+          if (isValidNigerianPhone(this.value.trim())) {
+            this.classList.remove("input-error");
+            document.getElementById("phoneErrorMsg").style.display = "none";
+          }
+        }
+      });
+
+      // ── SKILL CHECKBOXES ────────────────────────────────────────────
+      document.querySelectorAll(".skill-check").forEach(function(label) {
+        label.querySelector("input").addEventListener("change", function() {
+          label.classList.toggle("checked", this.checked);
+        });
+      });
+
+      // ── AVAILABILITY BUTTONS ─────────────────────────────────────────
+      document.querySelectorAll(".avail-btn").forEach(function(btn) {
+        btn.addEventListener("click", function() {
+          document.querySelectorAll(".avail-btn").forEach(function(b) { b.classList.remove("sel"); });
+          btn.classList.add("sel");
+          document.getElementById("availability").value = btn.getAttribute("data-v");
+          updateProgress();
+        });
+      });
+
+      // ── CV UPLOAD (Supabase) ─────────────────────────────────────────
+      var uploadedCvUrl = "";
+      var uploadZone = document.getElementById("uploadZone");
+
+      uploadZone.addEventListener("dragover", function(e) { e.preventDefault(); uploadZone.classList.add("dragover"); });
+      uploadZone.addEventListener("dragleave", function() { uploadZone.classList.remove("dragover"); });
+      uploadZone.addEventListener("drop", function(e) {
+        e.preventDefault();
+        uploadZone.classList.remove("dragover");
+        var file = e.dataTransfer.files[0];
+        if (file) handleFileUpload(file);
+      });
+      document.getElementById("cvFile").addEventListener("change", function() {
+        if (this.files[0]) handleFileUpload(this.files[0]);
+      });
+
+      function setUploadStatus(state, text) {
+        var el = document.getElementById("uploadStatus");
+        var icon = document.getElementById("uploadStatusIcon");
+        el.className = "upload-status " + state;
+        document.getElementById("uploadStatusText").textContent = text;
+        if (state === "uploading") {
+          icon.style.animation = "spin 1s linear infinite";
+          icon.querySelector("path").setAttribute("d","M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z");
+        } else if (state === "done") {
+          icon.style.animation = "";
+          icon.querySelector("path").setAttribute("d","M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z");
+        } else {
+          icon.style.animation = "";
+          icon.querySelector("path").setAttribute("d","M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z");
+        }
+      }
+
+      function handleFileUpload(file) {
+        if (file.size > 5 * 1024 * 1024) {
+          setUploadStatus("error","File is too large. Please upload a file under 5MB.");
+          return;
+        }
+        setUploadStatus("uploading","Uploading your CV, please wait...");
+        var filePath = Date.now() + "-" + file.name;
+        supabase.storage.from("cvs").upload(filePath, file)
+          .then(function(res) {
+            if (res.error) throw res.error;
+            var publicUrl = supabase.storage.from("cvs").getPublicUrl(filePath);
+            uploadedCvUrl = publicUrl.data.publicUrl;
+            document.getElementById("cvUrl").value = uploadedCvUrl;
+            setUploadStatus("done","CV uploaded successfully: " + file.name);
+          })
+          .catch(function(err) {
+            console.error("Upload failed:", err);
+            setUploadStatus("error","Upload failed. You can still submit — your CV is optional.");
+          });
+      }
+
+      // ── VALIDATION ───────────────────────────────────────────────────
+      function getVal(id) { return document.getElementById(id).value.trim(); }
+
+      function validate() {
+        var missing = [];
+        if (!getVal("fname"))     missing.push("First name");
+        if (!getVal("lname"))     missing.push("Last name");
+        if (!getVal("phone"))     missing.push("Phone number");
+        if (!getVal("dob"))       missing.push("Date of birth");
+        if (!getVal("gender"))    missing.push("Gender");
+        if (!getVal("address"))   missing.push("Home address");
+        if (!getVal("edu_level")) missing.push("Education level");
+        if (!getVal("exp_years")) missing.push("Years of work experience");
+        if (!getVal("availability")) missing.push("Availability (please select one above)");
+
+        // Phone format check — runs here so it blocks submission
+        var rawPhone = getVal("phone");
+        if (rawPhone && !isValidNigerianPhone(rawPhone)) {
+          missing.push("Valid Nigerian phone number (e.g. 08012345678)");
+          document.getElementById("phone").classList.add("input-error");
+          document.getElementById("phoneErrorMsg").style.display = "block";
+        }
+        return missing;
+      }
+
+      // ── FORM SUBMIT ──────────────────────────────────────────────────
+      document.getElementById("mainForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        // Block if already submitted on this device
+        if (localStorage.getItem("olg_submitted") === "true") {
+          showAlreadySubmitted();
+          return;
+        }
+
+        var missing = validate();
+        var errorBox = document.getElementById("errorBox");
+
+        if (missing.length > 0) {
+          errorBox.style.display = "block";
+          errorBox.innerHTML =
+            "<strong>Please fill in the following required fields:</strong>" +
+            '<ul style="margin-top:6px;padding-left:16px;">' +
+            missing.map(function(f) { return "<li>" + f + "</li>"; }).join("") +
+            "</ul>";
+          errorBox.scrollIntoView({ behavior: "smooth", block: "center" });
+          return;
+        }
+        errorBox.style.display = "none";
+
+        var skills = [];
+        document.querySelectorAll(".skill-check input:checked").forEach(function(cb) { skills.push(cb.value); });
+        var otherSkills = getVal("other_skills");
+        if (otherSkills) skills.push(otherSkills);
+
+        var refNumber = "OLG-" + Date.now().toString().slice(-7);
+
+        var payload = {
+          data: {
+            referenceNumber: refNumber,
+            timestamp: new Date().toISOString(),
+            firstName: getVal("fname"),
+            lastName: getVal("lname"),
+            phone: getVal("phone"),
+            dob: getVal("dob"),
+            gender: getVal("gender"),
+            email: getVal("email"),
+            address: getVal("address"),
+            eduLevel: getVal("edu_level"),
+            school: getVal("school"),
+            course: getVal("course"),
+            expYears: getVal("exp_years"),
+            lastJob: getVal("last_job"),
+            expDesc: getVal("exp_desc"),
+            skills: skills.join("; "),
+            availability: getVal("availability"),
+            disability: getVal("disability"),
+            referee: getVal("referee"),
+            cvUrl: uploadedCvUrl || "Not provided"
+          }
+        };
+
+        var btn = document.getElementById("submitBtn");
+        btn.disabled = true;
+        btn.innerHTML = '<svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:white;animation:spin 1s linear infinite"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg> Saving your registration...';
+
+        document.getElementById("progressFill").style.width = "100%";
+        document.getElementById("progressPct").textContent = "100%";
+
+        fetch(SHEETDB_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify(payload)
+        })
+        .then(function(res) {
+          if (!res.ok) throw new Error("Server error: " + res.status);
+          return res.json();
+        })
+        .then(function() {
+          // Mark as submitted on this device — prevents future submissions
+          localStorage.setItem("olg_submitted", "true");
+
+          document.getElementById("mainForm").style.display = "none";
+          var sc = document.getElementById("successCard");
+          sc.style.display = "block";
+          document.getElementById("successName").textContent =
+            "Thank you, " + payload.data.firstName + " " + payload.data.lastName + "!";
+          document.getElementById("refNum").textContent = refNumber;
+          sc.scrollIntoView({ behavior: "smooth", block: "start" });
+        })
+        .catch(function(err) {
+          console.error(err);
+          btn.disabled = false;
+          btn.innerHTML = '<svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg> Submit my registration';
+          errorBox.style.display = "block";
+          errorBox.textContent = "There was a problem submitting your form. Please check your internet connection and try again.";
+        });
+      });
+    </script>
+  </body>
+</html>
